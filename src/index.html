@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfólio | Vitor Costa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+          --bg: #040b17; --bg2: #0a1220; --bg3: #10192b; --bg4: #172338;
+          --purple1: #00e5ff; --purple2: #70f0ff; --purple3: #ccfaff; --purple4: #003840;
+          --teal1: #00a2ed; --teal2: #5cceff; --pink1: #4776e6; --pink2: #87a7f0;
+          --border: rgba(0, 229, 255, 0.18); --border2: rgba(0, 229, 255, 0.35);
+          --txt: #eef1f6; --txt2: #9ba8bd; --txt3: #5a6a82;
+          --radius: 14px; --font-display: 'Syne', sans-serif; --font-mono: 'Space Mono', monospace;
+        }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg); color: var(--txt); font-family: var(--font-display); min-height: 100vh; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
+        body::after { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+        nav { position: sticky; top: 0; z-index: 999; display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 64px; background: rgba(4, 11, 23, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .logo {font-family: var(--font-mono); font-size: 15px; color: var(--purple3); letter-spacing: 0.5px;}
+        .logo span { color: var(--teal2); }
+        .nav-links { display: flex; gap: 2px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 40px; padding: 4px; }
+        .nav-btn { background: none; border: none; color: var(--txt2); font-family: var(--font-display); font-size: 13px; font-weight: 500; padding: 7px 20px; border-radius: 30px; cursor: pointer; transition: all 0.25s; position: relative; }
+        .nav-btn:hover { color: var(--txt); }
+        .nav-btn.active { background: var(--purple4); color: var(--purple3); border: 1px solid var(--border2); }
+        main { position: relative; z-index: 1; }
+        .section { display: none; max-width: 960px; margin: 0 auto; padding: 4rem 2rem 5rem; animation: fadeUp 0.4s ease; }
+        .section.visible { display: block; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .sec-eyebrow { font-family: var(--font-mono); font-size: 11px; color: var(--teal1); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
+        .sec-title { font-size: clamp(28px, 5vw, 44px); font-weight: 800; line-height: 1.1; color: var(--txt); margin-bottom: 12px; }
+        .sec-title span { color: var(--purple2); }
+        .sec-sub { font-size: 15px; color: var(--txt2); line-height: 1.7; max-width: 540px; }
+        .hero-wrap { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: start; margin-bottom: 4rem; }
+        @media (max-width: 640px) { .hero-wrap { grid-template-columns: 1fr; } .avatar-wrap { display: none; } nav { padding: 0 1.25rem; } .section { padding: 3rem 1.25rem 4rem; } }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--teal2); background: rgba(0, 162, 237, 0.08); border: 1px solid rgba(0, 162, 237, 0.2); border-radius: 30px; padding: 5px 14px; margin-bottom: 20px; }
+        .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal1); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .hero-name { font-size: clamp(36px, 7vw, 68px); font-weight: 800; line-height: 1.0; letter-spacing: -2px; margin-bottom: 8px; }
+        .hero-name .line1 { color: var(--txt); }
+        .hero-name .line2 { color: transparent; -webkit-text-stroke: 1.5px var(--purple1); }
+        .hero-role { font-family: var(--font-mono); font-size: 14px; color: var(--purple2); margin-bottom: 20px; letter-spacing: 1px; }
+        .hero-bio { font-size: 16px; color: var(--txt2); line-height: 1.75; max-width: 500px; margin-bottom: 28px; }
+        .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .htag { font-family: var(--font-mono); font-size: 11px; padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border2); color: var(--purple3); background: rgba(0, 229, 255, 0.08); letter-spacing: 0.5px; }
+        .htag.t { color: var(--teal2); background: rgba(0, 162, 237, 0.07); border-color: rgba(0, 162, 237, 0.25); }
+        .avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        .avatar { width: 120px; height: 120px; border-radius: 24px; background: var(--bg4); border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 800; color: var(--purple2); position: relative; overflow: hidden; }
+        .avatar::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0, 229, 255, 0.15) 0%, rgba(0, 162, 237, 0.1) 100%); }
+        .avatar-label { font-family: var(--font-mono); font-size: 10px; color: var(--txt3); letter-spacing: 2px; text-align: center; }
+        .divider { height: 1px; background: var(--border); margin: 3rem 0; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 1.5rem; }
+        .skill-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; transition: border-color 0.2s; }
+        .skill-card:hover { border-color: var(--border2); }
+        .skill-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+        .skill-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+        .skill-icon svg { width: 15px; height: 15px; fill: none; stroke-width: 1.8; }
+        .skill-icon.purple { background: rgba(0, 229, 255, 0.12); border: 1px solid rgba(0, 229, 255, 0.25); }
+        .skill-icon.purple svg { stroke: var(--purple2); }
+        .skill-icon.teal { background: rgba(0, 162, 237, 0.10); border: 1px solid rgba(0, 162, 237, 0.25); }
+        .skill-icon.teal svg { stroke: var(--teal2); }
+        .skill-icon.pink { background: rgba(71, 118, 230, 0.10); border: 1px solid rgba(71, 118, 230, 0.25); }
+        .skill-icon.pink svg { stroke: var(--pink2); }
+        .skill-card h3 { font-size: 12px; font-weight: 600; color: var(--txt2); letter-spacing: 1.5px; text-transform: uppercase; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .stag { font-family: var(--font-mono); font-size: 11px; padding: 3px 9px; border-radius: 5px; background: rgba(255,255,255,0.04); color: var(--txt2); border: 1px solid rgba(255,255,255,0.07); }
+        .exp-list { margin-top: 1.5rem; }
+        .exp-item { display: grid; grid-template-columns: 1fr auto; gap: 1rem; padding: 1.5rem; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; transition: border-color 0.2s; }
+        .exp-item:hover { border-color: var(--border2); }
+        .exp-item h3 { font-size: 16px; font-weight: 700; color: var(--txt); margin-bottom: 4px; }
+        .exp-company { font-family: var(--font-mono); font-size: 12px; color: var(--teal2); margin-bottom: 8px; letter-spacing: 0.5px; }
+        .exp-desc { font-size: 13px; color: var(--txt2); line-height: 1.65; }
+        .exp-date { font-family: var(--font-mono); font-size: 11px; color: var(--txt3); white-space: nowrap; padding-top: 3px; }
+        .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; margin-top: 2rem; }
+        .proj-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.25s, transform 0.25s; }
+        .proj-card:hover { border-color: rgba(0, 229, 255, 0.5); transform: translateY(-2px); }
+        .proj-top { display: flex; align-items: flex-start; justify-content: space-between; }
+        .proj-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(0, 229, 255, 0.1); border: 1px solid rgba(0, 229, 255, 0.2); display: flex; align-items: center; justify-content: center; }
+        .proj-icon svg { width: 18px; height: 18px; fill: none; stroke: var(--purple2); stroke-width: 1.6; }
+        .proj-status { font-family: var(--font-mono); font-size: 10px; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.5px; }
+        .proj-status.done { background: rgba(0, 162, 237, 0.1); color: var(--teal2); border: 1px solid rgba(0, 162, 237, 0.25); }
+        .proj-status.wip { background: rgba(239,159,39,0.1); color: #EF9F27; border: 1px solid rgba(239,159,39,0.3); }
+        .proj-card h3 { font-size: 16px; font-weight: 700; color: var(--txt); }
+        .proj-card p { font-size: 13px; color: var(--txt2); line-height: 1.65; flex: 1; }
+        .proj-techs { display: flex; flex-wrap: wrap; gap: 5px; }
+        .ptag { font-family: var(--font-mono); font-size: 11px; padding: 2px 9px; border-radius: 4px; background: rgba(0, 229, 255, 0.08); color: var(--purple3); border: 1px solid rgba(0, 229, 255, 0.15); }
+        .proj-link { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--teal2); text-decoration: none; padding: 7px 14px; border: 1px solid rgba(0, 162, 237, 0.25); border-radius: 8px; background: rgba(0, 162, 237, 0.05); transition: background 0.2s; align-self: flex-start; letter-spacing: 0.3px; }
+        .proj-link:hover { background: rgba(0, 162, 237, 0.12); }
+        .proj-link svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+        @media (max-width: 600px) { .contact-grid { grid-template-columns: 1fr; } }
+        .contact-links { display: flex; flex-direction: column; gap: 10px; }
+        .clink { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; text-decoration: none; transition: border-color 0.2s, background 0.2s; }
+        .clink:hover { border-color: var(--border2); background: var(--bg3); }
+        .clink-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .clink-icon svg { width: 17px; height: 17px; fill: none; stroke-width: 1.7; }
+        .clink-icon.gh { background: rgba(0, 229, 255, 0.1); border: 1px solid rgba(0, 229, 255, 0.25); }
+        .clink-icon.gh svg { stroke: var(--purple2); }
+        .clink-icon.li { background: rgba(55,138,221,0.1); border: 1px solid rgba(55,138,221,0.25); }
+        .clink-icon.li svg { stroke: #85B7EB; }
+        .clink-icon.em { background: rgba(0, 162, 237, 0.1); border: 1px solid rgba(0, 162, 237, 0.25); }
+        .clink-icon.em svg { stroke: var(--teal2); }
+        .clink-icon.wp { background: rgba(99,200,80,0.1); border: 1px solid rgba(99,200,80,0.25); }
+        .clink-icon.wp svg { stroke: #7fd95a; }
+        .clink-info span { display: block; font-size: 14px; font-weight: 600; color: var(--txt); }
+        .clink-info small { font-family: var(--font-mono); font-size: 11px; color: var(--txt3); }
+        .contact-form { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; }
+        .contact-form h3 { font-size: 15px; font-weight: 700; color: var(--txt); margin-bottom: 1.25rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-label { display: block; font-family: var(--font-mono); font-size: 11px; color: var(--txt3); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 7px; }
+        .form-input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; color: var(--txt); font-family: var(--font-display); font-size: 14px; outline: none; transition: border-color 0.2s; }
+        .form-input:focus { border-color: var(--purple1); background: rgba(0, 229, 255, 0.05); }
+        .form-input::placeholder { color: var(--txt3); }
+        textarea.form-input { resize: vertical; min-height: 100px; }
+        .send-btn { width: 100%; padding: 12px; border-radius: 10px; border: none; background: var(--purple1); color: #111; font-family: var(--font-display); font-size: 14px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; transition: background 0.2s, transform 0.15s; }
+        .send-btn:hover { background: var(--purple2); }
+        .send-btn:active { transform: scale(0.98); }
+        .send-btn.sent { background: var(--teal1); color: #fff; }
+        .orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(80px); opacity: 0.12; }
+        .orb1 { width: 400px; height: 400px; background: var(--purple1); top: -100px; right: -100px; }
+        .orb2 { width: 300px; height: 300px; background: var(--teal1); bottom: 100px; left: -80px; }
+    </style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<nav>
+    <div class="logo">dev<span>.</span>portfolio</div>
+    <div class="nav-links">
+        <button class="nav-btn active" onclick="show('inicio', this)">Início</button>
+        <button class="nav-btn" onclick="show('projetos', this)">Projetos</button>
+        <button class="nav-btn" onclick="show('contato', this)">Contato</button>
+    </div>
+</nav>
+<main>
+    <section id="inicio" class="section visible">
+        <div class="hero-wrap">
+            <div>
+                <div class="hero-badge">Disponível para oportunidades</div>
+                <h1 class="hero-name"><span class="line1">Vitor Costa</span><br><span class="line2">Full Stack</span></h1>
+                <p class="hero-role">// Desenvolvedor Full Stack Júnior &amp; Entusiasta de Tech</p>
+                <p class="hero-bio">
+                    Analista de Suporte Jr. &amp; Desenvolvedor em Formação. Unindo a experiência de quem resolve problemas reais no Magalu com a paixão por criar código que transforma ideias em realidade.
+                </p>
+                <div class="hero-tags">
+                    <span class="htag">Java</span>
+                    <span class="htag">Python</span>
+                    <span class="htag">TypeScript</span>
+                    <span class="htag t">CSS</span>
+                    <span class="htag t">HTML</span>
+                    <span class="htag t">Git</span>
+                </div>
+            </div>
+            <div class="avatar-wrap">
+                <div class="avatar">FS</div>
+                <span class="avatar-label">FULL STACK</span>
+            </div>
+        </div>
+        <p class="sec-eyebrow">Stack técnica</p>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-card-head">
+                    <div class="skill-icon purple"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                    <h3>Front-end</h3>
+                </div>
+                <div class="skill-tags">
+                    <span class="stag">Next.js</span>
+                    <span class="stag">TypeScript</span><span class="stag">JavaScript</span><span class="stag">HTML / CSS</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-card-head">
+                    <div class="skill-icon teal"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+                    <h3>Back-end</h3>
+                </div>
+                <div class="skill-tags">
+                    <span class="stag">Java</span><span class="stag">Python</span><span class="stag">FastAPI</span><span class="stag">REST APIs</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-card-head">
+                    <div class="skill-icon pink"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+                    <h3>DevOps &amp; Ferramentas</h3>
+                </div>
+                <div class="skill-tags">
+                    <span class="stag">Git / GitHub</span><span class="stag">Windows</span><span class="stag">AWS</span>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <p class="sec-eyebrow">Trajetória</p>
+        <div class="exp-list">
+            <div class="exp-item">
+                <div>
+                    <h3>Analista de Suporte Júnior</h3>
+                    <div class="exp-company">Magazine Luiza</div>
+                    <p class="exp-desc">Analista de Suporte Júnior, prestando atendimento técnico a usuários, solucionando incidentes e garantindo o bom funcionamento dos sistemas e equipamentos da empresa. Possuo experiência com suporte remoto e presencial, diagnóstico de problemas, instalação e configuração de softwares, além de apoio na gestão de chamados.</p>
+                </div>
+                <div class="exp-date">2026 — Presente</div>
+            </div>
+            <div class="exp-item">
+                <div>
+                    <h3>Analista de Infraestrutura - Aprendiz</h3>
+                    <div class="exp-company">Alumax Extrusão de Metais</div>
+                    <p class="exp-desc">Aprendiz na área de infraestrutura de TI, auxiliando na instalação, configuração e manutenção de estações de trabalho, notebooks e periféricos.</p>
+                </div>
+                <div class="exp-date">2025 — 2026</div>
+            </div>
+            <div class="exp-item">
+                <div>
+                    <h3>Analista de Suporte Técnico</h3>
+                    <div class="exp-company">Lenovo</div>
+                    <p class="exp-desc">Orientação aos usuários, escalonamento de chamados quando necessário e atuação conforme procedimentos, SLAs e padrões de qualidade, contribuindo para a satisfação do cliente e a continuidade das operações.</p>
+                </div>
+                <div class="exp-date">2025</div>
+            </div>
+        </div>
+    </section>
+    <section id="projetos" class="section">
+        <p class="sec-eyebrow">GitHub &amp; trabalhos</p>
+        <h2 class="sec-title">Projetos em <span>destaque</span></h2>
+        <p class="sec-sub">Abaixo estão alguns Projetos desenvolvidos por mim.</p>
+        <div class="proj-grid">
+            <div class="proj-card">
+                <div class="proj-top">
+                    <div class="proj-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+                    <span class="proj-status done">concluído</span>
+                </div>
+                <h3>Gerador de Senhas</h3>
+                <p>Desenvolvi um gerador de senhas seguro em Java com interface gráfica dark mode usando Swing.
+                    O projeto utiliza SecureRandom para geração criptograficamente segura, permite configurar o comprimento,
+                    tipos de caracteres e exibe um indicador de força em tempo real tudo empacotado em uma interface limpa e funcional.</p>
+                <div class="proj-techs"><span class="ptag">Java</span><span class="ptag">CSS</span><span class="ptag">JavaScript</span></div>
+                <a href="https://github.com/VitorCosta-dev/PasswordGenerator1" class="proj-link" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                    Ver no GitHub
+                </a>
+            </div>
+            <div class="proj-card">
+                <div class="proj-top">
+                    <div class="proj-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg></div>
+                    <span class="proj-status done">concluído</span>
+                </div>
+                <h3>Sistema Bancário</h3>
+                <p>Desenvolvido como exercício de lógica, o projeto aplica conceitos fundamentais do Java para simular um sistema de saques real e Simples
+                    Detalhe, o caixa eletrônico tem apenas notas de 10R$ disponíveis para saque.</p>
+                <div class="proj-techs"><span class="ptag">JavaScript</span><span class="ptag">Java</span><span class="ptag">HTML</span></div>
+                <a href="https://github.com/VitorCosta-dev/SistemaBancario1" class="proj-link" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                    Ver no GitHub
+                </a>
+            </div>
+            <div class="proj-card">
+                <div class="proj-top">
+                    <div class="proj-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                    <span class="proj-status wip">em andamento</span>
+                </div>
+                <h3>Assistente Financeiro</h3>
+                <p>Solução em Java para gestão inteligente de rendimentos, controle de passivos e otimização de reserva de emergência.</p>
+                <div class="proj-techs"><span class="ptag">Java</span><span class="ptag">JavaScript</span><span class="ptag">HTML</span></div>
+                <a href="https://github.com/seuusuario/projeto03" class="proj-link" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                    Ver no GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+    <section id="contato" class="section">
+        <p class="sec-eyebrow">Vamos conversar</p>
+        <h2 class="sec-title">Entre em <span>contato</span></h2>
+        <p class="sec-sub">Aberto a oportunidades, colaborações e projetos interessantes. Respondo rápido!</p>
+        <div class="contact-grid">
+            <div>
+                <p style="font-size:13px;color:var(--txt2);margin-bottom:1rem;font-family:var(--font-mono);letter-spacing:0.5px">// me encontre em:</p>
+                <div class="contact-links">
+                    <a href="https://github.com/VitorCosta-dev" class="clink" target="_blank" rel="noopener noreferrer">
+                        <div class="clink-icon gh"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></div>
+                        <div class="clink-info"><span>GitHub</span><small>Perfil GitHub</small></div>
+                    </a>
+                    <a href="https://www.linkedin.com/in/vitorfcosta/" class="clink" target="_blank" rel="noopener noreferrer">
+                        <div class="clink-icon li"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+                        <div class="clink-info"><span>LinkedIn</span><small>Perfil do Linkedin</small></div>
+                    </a>
+                    <a href="vitor.fcosta@hotmail.com" class="clink">
+                        <div class="clink-icon em"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                        <div class="clink-info"><span>E-mail</span><small>Email para contato</small></div>
+                    </a>
+                </div>
+            </div>
+            <!-- COLOQUE SEU LINK DO FORMSPREE NO ACTION ABAIXO -->
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/SEU_ID_AQUI" method="POST" onsubmit="enviar(event)">
+                <h3>Mande uma mensagem!</h3>
+                <div class="form-group">
+                    <label class="form-label" for="f-nome">Nome</label>
+                    <!-- Importante: os atributos name="nome" etc, definem como chega no email -->
+                    <input class="form-input" type="text" name="nome" placeholder="Seu nome completo" id="f-nome" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="f-email">E-mail</label>
+                    <input class="form-input" type="email" name="email" placeholder="seu@email.com" id="f-email" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="f-msg">Mensagem</label>
+                    <textarea class="form-input" name="mensagem" placeholder="Oi, quero conversar sobre..." id="f-msg" required></textarea>
+                </div>
+                <button class="send-btn" id="sendBtn" type="submit">Enviar mensagem</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<script>
+    function show(id, btn) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('visible');
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    async function enviar(event) {
+      event.preventDefault(); // Impede que a página recarregue
+      const form = event.target;
+      const btn = document.getElementById('sendBtn');
+
+      if (form.action.includes('SEU_ID_AQUI')) {
+        alert('Por favor, crie sua conta no Formspree e cole seu link no action do form!');
+        return;
+      }
+
+      const oldText = btn.textContent;
+      btn.textContent = 'Enviando...';
+
+      // Envio via Fetch API para o Formspree
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: new FormData(form),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          btn.textContent = 'Mensagem enviada!';
+          btn.classList.add('sent');
+          form.reset(); // Limpa os campos automaticamente
+        } else {
+          btn.textContent = 'Erro ao enviar =(';
+        }
+      } catch (error) {
+        btn.textContent = 'Erro de rede';
+      }
+
+      setTimeout(() => {
+        btn.textContent = oldText;
+        btn.classList.remove('sent');
+      }, 3000);
+    }
+</script>
+</body>
+</html>
