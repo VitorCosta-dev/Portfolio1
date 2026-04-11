@@ -1048,7 +1048,7 @@
                         </svg></div>
                         <div class="clink-info"><span>LinkedIn</span><small>Perfil do Linkedin</small></div>
                     </a>
-                    <a href="vitor.fcosta@hotmail.com" class="clink">
+                    <a href="mailto:vitor.fcosta@hotmail.com" class="clink">
                         <div class="clink-icon em"><svg viewBox="0 0 24 24">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                             <polyline points="22,6 12,13 2,6" />
@@ -1057,13 +1057,12 @@
                     </a>
                 </div>
             </div>
-            <!-- COLOQUE SEU LINK DO FORMSPREE NO ACTION ABAIXO -->
+
             <form class="contact-form" id="contactForm" action="https://formspree.io/f/mbdpnqne" method="POST"
                   onsubmit="enviar(event)">
                 <h3>Mande uma mensagem!</h3>
                 <div class="form-group">
                     <label class="form-label" for="f-nome">Nome</label>
-                    <!-- Importante: os atributos name="nome" etc, definem como chega no email -->
                     <input class="form-input" type="text" name="nome" placeholder="Seu nome completo" id="f-nome" required />
                 </div>
                 <div class="form-group">
@@ -1089,15 +1088,15 @@
       btn.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
     async function enviar(event) {
-      event.preventDefault(); // Impede que a página recarregue
+      event.preventDefault();
       const form = event.target;
       const btn = document.getElementById('sendBtn');
 
       const oldText = btn.textContent;
       btn.textContent = 'Enviando...';
 
-      // Envio via Fetch API para o Formspree
       try {
         const response = await fetch(form.action, {
           method: form.method,
@@ -1110,7 +1109,7 @@
         if (response.ok) {
           btn.textContent = 'Mensagem enviada!';
           btn.classList.add('sent');
-          form.reset(); // Limpa os campos automaticamente
+          form.reset();
         } else {
           btn.textContent = 'Erro ao enviar =(';
         }
