@@ -1,30 +1,45 @@
-### IntelliJ IDEA ###
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-.kotlin
+# Dependencies
+/node_modules/
+/.pnp
+.pnp.*
+# Keep authored Yarn tooling if the project adopts Yarn.
+/.yarn/*
+!/.yarn/patches/
+!/.yarn/plugins/
+!/.yarn/releases/
+!/.yarn/versions/
 
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
+# Generated builds and framework state
 /dist/
-/nbdist/
-/.nb-gradle/
+/.next/
+/.vinext/
+/out/
+next-env.d.ts
+*.tsbuildinfo
 
-### VS Code ###
-.vscode/
+# Test output
+/coverage/
 
-### Mac OS ###
+# Package-manager logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local environment and keys
+.env*
+.dev.vars*
+*.pem
+
+# Checkout-local tool state
+/.wrangler/
+/.sites-runtime/
+
+# Workspace scaffolding and publication archives
+/.agents/
+/.codex/
+/outputs/
+/work/
+
+# OS metadata
 .DS_Store
